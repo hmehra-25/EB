@@ -1,0 +1,32 @@
+To design and verify a half subtractor using D = x’y +xy’ B=x’y 
+Code :
+module half_subtractor ( 
+input x, // Minuend 
+input y, // Subtrahend 
+output D, // Difference output 
+output B // Borrow output 
+); 
+// Implement the difference and borrow using the given equations assign D = (~x & y) | (x & ~y); // D = x'y + xy' 
+assign B = ~x & y; // B = x'y 
+endmodule 
+TestBench Code 
+module half_subtractor_tb; 
+reg x, y; // Test inputs 
+wire D, B; // Outputs from the half subtractor 
+// Instantiate the half subtractor module 
+half_subtractor uut ( 
+.x(x), 
+.y(y), 
+.D(D), 
+.B(B) 
+); 
+// Test all possible combinations of x and y 
+initial begin 
+$display("x y | D B"); // Header for the output table $display("------------ "); 
+x = 0; y = 0; #10 $display("%b %b | %b %b", x, y, D, B);
+x = 0; y = 1; #10 $display("%b %b | %b %b", x, y, D, B); 
+x = 1; y = 0; #10 $display("%b %b | %b %b", x, y, D, B); 
+x = 1; y = 1; #10 $display("%b %b | %b %b", x, y, D, B); 
+$finish; 
+end 
+endmodule 

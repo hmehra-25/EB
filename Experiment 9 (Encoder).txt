@@ -1,0 +1,30 @@
+To design and implement a 4:2 encoder. 
+Code : 
+module encoder_4_to_2 ( 
+input I0, I1, I2, I3, // Inputs 
+output Y0, Y1 // Outputs 
+); 
+// Implement the 4:2 Encoder logic 
+assign Y0 = I1 | I3; 
+assign Y1 = I2 | I3; 
+endmodule 
+Test Bench Code 
+module encoder_4_to_2_tb; 
+reg I0, I1, I2, I3; // Inputs 
+wire Y0, Y1; // Outputs 
+// Instantiate the 4:2 Encoder 
+encoder_4_to_2 uut ( 
+.I0(I0), 
+.I1(I1), 
+.I2(I2), 
+.I3(I3), 
+.Y0(Y0), 
+.Y1(Y1) 
+); 
+// Test all input combinations with only one input high initial begin
+$display("I3 I2 I1 I0 | Y1 Y0"); 
+$display(" "); 
+I0 = 1; I1 = 0; I2 = 0; I3 = 0; #10 $display("%b %b %b %b | %b %b", I3, I2, I1, I0, Y1, Y0); I0 = 0; I1 = 1; I2 = 0; I3 = 0; #10 $display("%b %b %b %b | %b %b", I3, I2, I1, I0, Y1, Y0); I0 = 0; I1 = 0; I2 = 1; I3 = 0; #10 $display("%b %b %b %b | %b %b", I3, I2, I1, I0, Y1, Y0); I0 = 0; I1 = 0; I2 = 0; I3 = 1; #10 $display("%b %b %b %b | %b %b", I3, I2, I1, I0, Y1, Y0); 
+$finish; 
+end 
+endmodule

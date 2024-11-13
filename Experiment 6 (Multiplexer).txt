@@ -1,0 +1,34 @@
+To design and implement a 4:1 multiplexer 
+Code : 
+module mux_4_to_1 ( 
+input I0, I1, I2, I3, // Data inputs 
+input S0, S1, // Selection lines 
+output Y // Output 
+); 
+// Implement the 4:1 MUX logic 
+assign Y = (~S1 & ~S0 & I0) | (~S1 & S0 & I1) | (S1 & ~S0 & I2) | (S1 & S0 & I3); 
+endmodule 
+Test-Bench Code 
+module mux_4_to_1_tb; 
+reg I0, I1, I2, I3; // Data inputs 
+reg S0, S1; // Selection lines 
+wire Y; // Output from the MUX 
+// Instantiate the 4:1 MUX 
+mux_4_to_1 uut ( 
+.I0(I0), 
+.I1(I1), 
+.I2(I2), 
+.I3(I3), 
+.S0(S0), 
+.S1(S1), 
+.Y(Y) 
+); 
+// Test all combinations
+initial begin 
+$display("S1 S0 | I0 I1 I2 I3 | Y "); 
+$display(" "); 
+I0 = 1; I1 = 0; I2 = 1; I3 = 0; 
+S1 = 0; S0 = 0; #10 $display(" %b %b | %b %b %b %b | %b", S1, S0, I0, I1, I2, I3, Y); S1 = 0; S0 = 1; #10 $display(" %b %b | %b %b %b %b | %b", S1, S0, I0, I1, I2, I3, Y); S1 = 1; S0 = 0; #10 $display(" %b %b | %b %b %b %b | %b", S1, S0, I0, I1, I2, I3, Y); S1 = 1; S0 = 1; #10 $display(" %b %b | %b %b %b %b | %b", S1, S0, I0, I1, I2, I3, Y); 
+$finish; 
+end 
+endmodule

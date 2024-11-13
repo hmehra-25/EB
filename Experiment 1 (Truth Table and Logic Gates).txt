@@ -1,0 +1,26 @@
+To study and verify the truth table of various logic gates (NOT, AND, OR, NAND, NOR, EX-OR, & EX-NOR). 
+Code : 
+module logic_gates_test; 
+reg a, b; 
+wire not_a; 
+wire and_ab, or_ab, nand_ab, nor_ab, xor_ab, xnor_ab; 
+not U1 (not_a, a); 
+and U2 (and_ab, a, b); 
+or U3 (or_ab, a, b); 
+nand U4 (nand_ab, a, b); 
+nor U5 (nor_ab, a, b); 
+xor U6 (xor_ab, a, b); 
+xnor U7 (xnor_ab, a, b); 
+initial begin 
+$display("A B | NOT AND OR NAND NOR XOR XNOR"); 
+$display(" "); 
+a = 0; b = 0; #10 display_values(); 
+a = 0; b = 1; #10 display_values(); 
+a = 1; b = 0; #10 display_values(); 
+a = 1; b = 1; #10 display_values();
+$finish; 
+end 
+task display_values; 
+$display("%b %b | %b %b %b %b %b %b %b", a, b, not_a, and_ab, or_ab, nand_ab, nor_ab, xor_ab, xnor_ab); 
+endtask 
+endmodule 

@@ -1,0 +1,42 @@
+Design a BCD to Excess 3 code converter using combinational circuits. Code :
+module bcd_to_excess3 ( 
+input A, B, C, D, // BCD input 
+output W, X, Y, Z // Excess-3 output 
+); 
+// Implement the Excess-3 outputs using the derived Boolean expressions assign W = A | (B & (C | D)); // W = A + B(C + D) 
+assign X = (~B & D) | (~B & C) | (B & ~D); // X = B'D + B'C + BD' assign Y = C ^ D; // Y = C XOR D 
+assign Z = ~D; // Z = D' 
+endmodule 
+Test Bench Code 
+module bcd_to_excess3_tb; 
+reg A, B, C, D; // BCD inputs 
+wire W, X, Y, Z; // Excess-3 outputs 
+// Instantiate the converter module 
+bcd_to_excess3 uut ( 
+.A(A), 
+.B(B), 
+.C(C), 
+.D(D), 
+.W(W), 
+.X(X), 
+.Y(Y), 
+.Z(Z) 
+); 
+// Apply test cases 
+initial begin
+
+$display(" A B C D | W X Y Z "); $display(" "); 
+A = 0; B = 0; C = 0; D = 0; #10 $display(" %b Y, Z); // 0 
+A = 0; B = 0; C = 0; D = 1; #10 $display(" %b Y, Z); // 1 
+A = 0; B = 0; C = 1; D = 0; #10 $display(" %b Y, Z); // 2 
+A = 0; B = 0; C = 1; D = 1; #10 $display(" %b Y, Z); // 3 
+A = 0; B = 1; C = 0; D = 0; #10 $display(" %b Y, Z); // 4 
+A = 0; B = 1; C = 0; D = 1; #10 $display(" %b Y, Z); // 5 
+A = 0; B = 1; C = 1; D = 0; #10 $display(" %b Y, Z); // 6 
+A = 0; B = 1; C = 1; D = 1; #10 $display(" %b Y, Z); // 7 
+A = 1; B = 0; C = 0; D = 0; #10 $display(" %b Y, Z); // 8 
+A = 1; B = 0; C = 0; D = 1; #10 $display(" %b Y, Z); // 9 
+$finish; 
+end 
+endmodule
+%b %b %b | %b %b %b %b", A, B, C, D, W, X, %b %b %b | %b %b %b %b", A, B, C, D, W, X, %b %b %b | %b %b %b %b", A, B, C, D, W, X, %b %b %b | %b %b %b %b", A, B, C, D, W, X, %b %b %b | %b %b %b %b", A, B, C, D, W, X, %b %b %b | %b %b %b %b", A, B, C, D, W, X, %b %b %b | %b %b %b %b", A, B, C, D, W, X, %b %b %b | %b %b %b %b", A, B, C, D, W, X, %b %b %b | %b %b %b %b", A, B, C, D, W, X, %b %b %b | %b %b %b %b", A, B, C, D, W, X, 

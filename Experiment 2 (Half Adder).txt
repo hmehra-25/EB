@@ -1,0 +1,31 @@
+To design and verify a half adder using S= (x+y)(x’+y’) C= xy 
+Code :
+module half_adder ( 
+input x, // First input 
+input y, // Second input 
+output S, // Sum output 
+output C // Carry output 
+); 
+// Implement the sum and carry using the given equations assign S = (x | y) & (~x | ~y); // S = (x + y)(x' + y') assign C = x & y; // C = xy 
+endmodule 
+The Test Bench Code to verify : 
+module half_adder_tb; 
+reg x, y; // Test inputs 
+wire S, C; // Outputs from the half adder 
+// Instantiate the half adder module 
+half_adder uut ( 
+.x(x), 
+.y(y), 
+.S(S), 
+.C(C) 
+); 
+// Test all possible combinations of x and y 
+initial begin 
+$display("x y | S C"); // Header for the output table $display("------------ "); 
+x = 0; y = 0; #10 $display("%b %b | %b %b", x, y, S, C);
+x = 0; y = 1; #10 $display("%b %b | %b %b", x, y, S, C); 
+x = 1; y = 0; #10 $display("%b %b | %b %b", x, y, S, C); 
+x = 1; y = 1; #10 $display("%b %b | %b %b", x, y, S, C); 
+$finish; 
+end 
+endmodule 

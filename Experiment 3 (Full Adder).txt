@@ -1,0 +1,30 @@
+To design and verify a full adder using S = x’y’z+x’yz’+xy’z’+xyz C=xy+xz+yz Code :
+module full_adder ( 
+input x, // First input 
+input y, // Second input 
+input z, // Third input (carry-in) 
+output S, // Sum output 
+output C // Carry output 
+); 
+// Implement the sum and carry using the given equations assign S = (~x & ~y & z) | (~x & y & ~z) | (x & ~y & ~z) | (x & y & z); assign C = (x & y) | (x & z) | (y & z); 
+endmodule 
+Test-Bench Code : 
+module full_adder_tb; 
+reg x, y, z; // Test inputs 
+wire S, C; // Outputs from the full adder 
+// Instantiate the full adder module 
+full_adder uut ( 
+.x(x), 
+.y(y), 
+.z(z), 
+.S(S), 
+.C(C) 
+); 
+// Test all possible combinations of x, y, and z 
+initial begin 
+$display("x y z | S C"); // Header for the output table 
+$display("-------------- ");
+x = 0; y = 0; z = 0; #10 $display("%b %b %b | %b %b", x, y, z, S, C); x = 0; y = 0; z = 1; #10 $display("%b %b %b | %b %b", x, y, z, S, C); x = 0; y = 1; z = 0; #10 $display("%b %b %b | %b %b", x, y, z, S, C); x = 0; y = 1; z = 1; #10 $display("%b %b %b | %b %b", x, y, z, S, C); x = 1; y = 0; z = 0; #10 $display("%b %b %b | %b %b", x, y, z, S, C); x = 1; y = 0; z = 1; #10 $display("%b %b %b | %b %b", x, y, z, S, C); x = 1; y = 1; z = 0; #10 $display("%b %b %b | %b %b", x, y, z, S, C); x = 1; y = 1; z = 1; #10 $display("%b %b %b | %b %b", x, y, z, S, C); 
+$finish; 
+end 
+endmodule 
